@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMC Signal Engine</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #080b10;
+        color: #ffffff;
+        padding: 18px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 5px;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #9ca3af;
+        margin-bottom: 20px;
+    }
+
+    .warning {
+        background: #211b08;
+        border: 1px solid #806b22;
+        padding: 12px;
+        border-radius: 10px;
+        color: #f5d76e;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .card {
+        background: #11161d;
+        border: 1px solid #252d38;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 7px;
+        color: #cbd5e1;
+        font-weight: bold;
+    }
+
+    select {
+        width: 100%;
+        padding: 13px;
+        border-radius: 9px;
+        border: 1px solid #374151;
+        background: #0b1016;
+        color: white;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        background: #2563eb;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+    .score {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .scoreBox {
+        flex: 1;
+        background: #0b1016;
+        border: 1px solid #252d38;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .scoreNumber {
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    .bull {
+        color: #4ade80;
+    }
+
+    .bear {
+        color: #f87171;
+    }
+
+    #signal {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin: 20px 0 10px;
+    }
+
+    #reasoning {
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    .footer {
+        text-align: center;
+        color: #6b7280;
+        font-size: 12px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>SMC ENGINE</h1>
+
+    <div class="subtitle">
+        Version 1 — Mobile Analyzer
+    </div>
+
+    <div class="warning">
+        SIMULATION / EDUCATIONAL MODE<br>
+        No broker connection • No real-money execution
+    </div>
+
+    <div class="card">
+
+        <label>Market Structure</label>
+        <select id="structure">
+            <option value="bullish">Bullish</option>
+            <option value="bearish">Bearish</option>
+            <option value="neutral">Neutral</option>
+        </select>
+
+        <label>Liquidity Event</label>
+        <select id="liquidity">
+            <option value="sell">Sell-side swept</option>
+            <option value="buy">Buy-side swept</option>
+            <option value="none">No sweep</option>
+        </select>
+
+        <label>Fair Value Gap</label>
+        <select id="fvg">
+            <option value="bullish">Bullish FVG</option>
+            <option value="bearish">Bearish FVG</option>
+            <option value="none">No FVG</option>
+        </select>
+
+        <label>Displacement</label>
+        <select id="displacement">
+            <option value="bullish">Bullish</option>
+            <option value="bearish">Bearish</option>
+            <option value="none">None</option>
+        </select>
+
+        <label>Price Location</label>
+        <select id="location">
+            <option value="discount">Discount</option>
+            <option value="premium">Premium</option>
+            <option value="equilibrium">Equilibrium</option>
+        </select>
+
+        <label>Momentum</label>
+        <select id="momentum">
+            <option value="bullish">Bullish</option>
+            <option value="bearish">Bearish</option>
+            <option value="neutral">Neutral</option>
+        </select>
+
+        <button onclick="analyze()">ANALYZE MARKET</button>
+
+    </div>
+
+    <div class="card">
+
+        <div class="score">
+
+            <div class="scoreBox">
+                <div>BULLISH</div>
+                <div id="bullScore" class="scoreNumber bull">0</div>
+            </div>
+
+            <div class="scoreBox">
+                <div>BEARISH</div>
+                <div id="bearScore" class="scoreNumber bear">0</div>
+            </div>
+
+        </div>
+
+        <div id="signal">
+            WAIT
+        </div>
+
+        <div id="reasoning">
+            Select the market conditions above and press ANALYZE MARKET.
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Educational SMC rule engine — not financial advice.
+    </div>
+
+</div>
+
+<script>
+
+function analyze() {
+
+    let bull = 0;
+    let bear = 0;
+
+    let reasons = [];
+
+    const structure = document.getElementById("structure").value;
+    const liquidity = document.getElementById("liquidity").value;
+    const fvg = document.getElementById("fvg").value;
+    const displacement = document.getElementById("displacement").value;
+    const location = document.getElementById("location").value;
+    const momentum = document.getElementById("momentum").value;
+
+    if (structure === "bullish") {
+        bull += 2;
+        reasons.push("Bullish market structure (+2)");
+    }
+
+    if (structure === "bearish") {
+        bear += 2;
+        reasons.push("Bearish market structure (+2)");
+    }
+
+    if (liquidity === "sell") {
+        bull += 2;
+        reasons.push("Sell-side liquidity sweep (+2 bullish)");
+    }
+
+    if (liquidity === "buy") {
+        bear += 2;
+        reasons.push("Buy-side liquidity sweep (+2 bearish)");
+    }
+
+    if (fvg === "bullish") {
+        bull += 1;
+        reasons.push("Bullish fair value gap (+1)");
+    }
+
+    if (fvg === "bearish") {
+        bear += 1;
+        reasons.push("Bearish fair value gap (+1)");
+    }
+
+    if (displacement === "bullish") {
+        bull += 1;
+        reasons.push("Bullish displacement (+1)");
+    }
+
+    if (displacement === "bearish") {
+        bear += 1;
+        reasons.push("Bearish displacement (+1)");
+    }
+
+    if (location === "discount") {
+        bull += 1;
+        reasons.push("Price in discount (+1 bullish)");
+    }
+
+    if (location === "premium") {
+        bear += 1;
+        reasons.push("Price in premium (+1 bearish)");
+    }
+
+    if (momentum === "bullish") {
+        bull += 1;
+        reasons.push("Bullish momentum (+1)");
+    }
+
+    if (momentum === "bearish") {
+        bear += 1;
+        reasons.push("Bearish momentum (+1)");
+    }
+
+    document.getElementById("bullScore").textContent = bull;
+    document.getElementById("bearScore").textContent = bear;
+
+    let signal = "WAIT";
+    let signalColor = "#facc15";
+
+    if (bull >= 5 && bull > bear) {
+        signal = "SIMULATED BULLISH SETUP";
+        signalColor = "#4ade80";
+    }
+
+    else if (bear >= 5 && bear > bull) {
+        signal = "SIMULATED BEARISH SETUP";
+        signalColor = "#f87171";
+    }
+
+    document.getElementById("signal").textContent = signal;
+    document.getElementById("signal").style.color = signalColor;
+
+    if (reasons.length === 0) {
+        document.getElementById("reasoning").textContent =
+            "No strong confluence detected.";
+    } else {
+        document.getElementById("reasoning").innerHTML =
+            "<strong>Engine reasoning:</strong><br>" +
+            reasons.join("<br>");
+    }
+}
+
+</script>
+
+</body>
+</html>
