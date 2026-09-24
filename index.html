@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMC Engine</title><style>
+<title>SMC Engine</title>
+
+<style>
 * {
     box-sizing: border-box;
 }
@@ -149,31 +152,50 @@ button:active {
     font-size: 12px;
     margin-top: 20px;
 }
-</style></head><body><div class="container"><h1>SMC ENGINE</h1><div class="subtitle">
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>SMC ENGINE</h1>
+
+<div class="subtitle">
 Screenshot Market Analyzer
-</div><div class="warning">
+</div>
+
+<div class="warning">
 SIMULATION / EDUCATIONAL MODE<br>
 No broker connection • No real-money execution
-</div><div class="card"><div class="upload-box"><strong>📸 UPLOAD CHART SCREENSHOT</strong>
+</div>
+
+<div class="card">
+
+<div class="upload-box">
+
+<strong>📸 UPLOAD CHART SCREENSHOT</strong>
 
 <p>
 Upload a clear trading chart for SMC analysis.
-</p><input
-type="file"
-id="chartImage"
-accept="image/*"
-onchange="previewChart()"
+</p>
 
-«»
+<input
+    type="file"
+    id="chartImage"
+    accept="image/*"
+    onchange="previewChart()"
+>
 
 <img
-id="preview"
-class="preview"
-alt="Chart preview"
+    id="preview"
+    class="preview"
+    alt="Chart preview"
+>
 
-«»
+</div>
 
-</div><label>Instrument</label>
+<label>Instrument</label>
 
 <select id="instrument">
 <option value="XAUUSD">XAU/USD</option>
@@ -181,7 +203,9 @@ alt="Chart preview"
 <option value="EURUSD">EUR/USD</option>
 <option value="USDJPY">USD/JPY</option>
 <option value="OTHER">Other</option>
-</select><label>Chart Timeframe</label>
+</select>
+
+<label>Chart Timeframe</label>
 
 <select id="timeframe">
 <option value="1m">1 Minute</option>
@@ -191,57 +215,103 @@ alt="Chart preview"
 <option value="1h">1 Hour</option>
 <option value="4h">4 Hours</option>
 <option value="1d">Daily</option>
-</select><button onclick="analyzeChart()">
+</select>
+
+<button onclick="analyzeChart()">
 ANALYZE CHART
-</button><div id="status">
+</button>
+
+<div id="status">
 Waiting for chart...
-</div></div><div class="card"><div class="result-title">
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="result-title">
 ANALYSIS
-</div><div class="result-row">
+</div>
+
+<div class="result-row">
 <strong>Market Structure</strong><br>
 <span id="structure">Awaiting analysis</span>
-</div><div class="result-row">
+</div>
+
+<div class="result-row">
 <strong>Liquidity</strong><br>
 <span id="liquidity">Awaiting analysis</span>
-</div><div class="result-row">
+</div>
+
+<div class="result-row">
 <strong>Fair Value Gap</strong><br>
 <span id="fvg">Awaiting analysis</span>
-</div><div class="result-row">
+</div>
+
+<div class="result-row">
 <strong>Displacement</strong><br>
 <span id="displacement">Awaiting analysis</span>
-</div><div class="result-row">
+</div>
+
+<div class="result-row">
 <strong>Price Location</strong><br>
 <span id="location">Awaiting analysis</span>
-</div><div class="result-row">
+</div>
+
+<div class="result-row">
 <strong>Momentum</strong><br>
 <span id="momentum">Awaiting analysis</span>
-</div><div class="setup"><strong>SETUP</strong>
+</div>
+
+<div class="setup">
+
+<strong>SETUP</strong>
 
 <p id="setup">
 No analysis yet.
-</p><strong>ENTRY</strong>
+</p>
+
+<strong>ENTRY</strong>
 
 <p id="entry">
 —
-</p><strong>STOP LOSS</strong>
+</p>
+
+<strong>STOP LOSS</strong>
 
 <p id="stop">
 —
-</p><strong>TARGETS</strong>
+</p>
+
+<strong>TARGETS</strong>
 
 <p id="targets">
 —
-</p><strong>RISK MANAGEMENT</strong>
+</p>
+
+<strong>RISK MANAGEMENT</strong>
 
 <p id="risk">
 —
-</p><strong>INVALIDATION</strong>
+</p>
+
+<strong>INVALIDATION</strong>
 
 <p id="invalidation">
 —
-</p></div></div><div class="footer">
+</p>
+
+</div>
+
+</div>
+
+<div class="footer">
 Educational SMC analysis tool — not financial advice.
-</div></div><script>
+</div>
+
+</div>
+
+<script>
 
 function previewChart() {
 
@@ -290,5 +360,7 @@ function analyzeChart() {
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
