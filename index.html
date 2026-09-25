@@ -112,8 +112,8 @@ button {
     font-weight: bold;
 }
 
-button:active {
-    transform: scale(0.98);
+button:disabled {
+    opacity: 0.6;
 }
 
 #status {
@@ -135,7 +135,7 @@ button:active {
 }
 
 .result-row span {
-    color: #9ca3af;
+    color: #cbd5e1;
 }
 
 .setup {
@@ -144,6 +144,10 @@ button:active {
     border-radius: 10px;
     background: #0b1016;
     border: 1px solid #252d38;
+}
+
+.setup p {
+    color: #cbd5e1;
 }
 
 .footer {
@@ -217,7 +221,7 @@ Upload a clear trading chart for SMC analysis.
 <option value="1d">Daily</option>
 </select>
 
-<button onclick="analyzeChart()">
+<button id="analyzeButton" onclick="analyzeChart()">
 ANALYZE CHART
 </button>
 
@@ -249,6 +253,11 @@ ANALYSIS
 </div>
 
 <div class="result-row">
+<strong>Order Blocks</strong><br>
+<span id="orderBlocks">Awaiting analysis</span>
+</div>
+
+<div class="result-row">
 <strong>Displacement</strong><br>
 <span id="displacement">Awaiting analysis</span>
 </div>
@@ -263,43 +272,33 @@ ANALYSIS
 <span id="momentum">Awaiting analysis</span>
 </div>
 
+<div class="result-row">
+<strong>Direction</strong><br>
+<span id="direction">Awaiting analysis</span>
+</div>
+
 <div class="setup">
 
-<strong>SETUP</strong>
-
-<p id="setup">
-No analysis yet.
-</p>
-
 <strong>ENTRY</strong>
-
-<p id="entry">
-—
-</p>
+<p id="entry">—</p>
 
 <strong>STOP LOSS</strong>
-
-<p id="stop">
-—
-</p>
+<p id="stop">—</p>
 
 <strong>TARGETS</strong>
-
-<p id="targets">
-—
-</p>
+<p id="targets">—</p>
 
 <strong>RISK MANAGEMENT</strong>
-
-<p id="risk">
-—
-</p>
+<p id="risk">—</p>
 
 <strong>INVALIDATION</strong>
+<p id="invalidation">—</p>
 
-<p id="invalidation">
-—
-</p>
+<strong>EVIDENCE QUALITY</strong>
+<p id="evidence">—</p>
+
+<strong>REASONING</strong>
+<p id="reasoning">—</p>
 
 </div>
 
@@ -312,6 +311,9 @@ Educational SMC analysis tool — not financial advice.
 </div>
 
 <script>
+
+const WORKER_URL =
+"https://smc-signal-engine-api.sparrowmaphera.workers.dev/";
 
 function previewChart() {
 
@@ -329,23 +331,45 @@ function previewChart() {
     const reader = new FileReader();
 
     reader.onload = function(event) {
-
         preview.src = event.target.result;
         preview.style.display = "block";
-
     };
 
     reader.readAsDataURL(file);
 }
 
 
-function analyzeChart() {
+function setResult(id, value) {
+
+    const element = document.getElementById(id);
+
+    if (!element) return;
+
+    element.textContent =
+        value === undefined ||
+        value === null ||
+        value === ""
+            ? "Not provided"
+            : value;
+}
+
+
+async function analyzeChart() {
 
     const file =
         document.getElementById("chartImage").files[0];
 
     const status =
         document.getElementById("status");
+
+    const button =
+        document.getElementById("analyzeButton");
+
+    const instrument =
+        document.getElementById("instrument").value;
+
+    const timeframe =
+        document.getElementById("timeframe").value;
 
     if (!file) {
 
@@ -355,9 +379,163 @@ function analyzeChart() {
         return;
     }
 
-    status.textContent =
-        "Chart uploaded. AI analysis connection will be added in the next step.";
+    button.disabled = true;
 
+    status.textContent =
+        "Sending chart to AI...";
+
+    try {
+
+        const imageData =
+            await fileToDataURL(file);
+
+        status.textContent =
+            "AI is analyzing the chart...";
+
+        const response =
+            await fetch(WORKER_URL, {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    image: imageData,
+                    instrument: instrument,
+                    timeframe: timeframe
+                })
+            });
+
+        const data =
+            await response.json();
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.error ||
+                "The AI request failed."
+            );
+        }
+
+        const analysis =
+            data.analysis || {};
+
+        setResult(
+            "structure",
+            analysis.marketStructure
+        );
+
+        setResult(
+            "liquidity",
+            analysis.liquidity
+        );
+
+        setResult(
+            "fvg",
+            analysis.fairValueGap
+        );
+
+        setResult(
+            "orderBlocks",
+            analysis.orderBlocks
+        );
+
+        setResult(
+            "displacement",
+            analysis.displacement
+        );
+
+        setResult(
+            "location",
+            analysis.priceLocation
+        );
+
+        setResult(
+            "momentum",
+            analysis.momentum
+        );
+
+        setResult(
+            "direction",
+            analysis.direction
+        );
+
+        setResult(
+            "entry",
+            analysis.entry
+        );
+
+        setResult(
+            "stop",
+            analysis.stopLoss
+        );
+
+        setResult(
+            "targets",
+            analysis.targets
+        );
+
+        setResult(
+            "risk",
+            analysis.riskManagement
+        );
+
+        setResult(
+            "invalidation",
+            analysis.invalidation
+        );
+
+        setResult(
+            "evidence",
+            analysis.evidenceQuality
+        );
+
+        setResult(
+            "reasoning",
+            analysis.reasoning
+        );
+
+        status.textContent =
+            "Analysis complete.";
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Error: " + error.message;
+
+    } finally {
+
+        button.disabled = false;
+    }
+}
+
+
+function fileToDataURL(file) {
+
+    return new Promise(function(resolve, reject) {
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function() {
+                resolve(reader.result);
+            };
+
+        reader.onerror =
+            function() {
+                reject(
+                    new Error(
+                        "Could not read the chart image."
+                    )
+                );
+            };
+
+        reader.readAsDataURL(file);
+    });
 }
 
 </script>
