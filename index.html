@@ -3,158 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SMC Engine</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#0b0f14;
+color:#f2f4f7
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #080b10;
-    color: white;
-    padding: 18px;
+.container{
+max-width:900px;
+margin:auto;
+padding:20px
 }
 
-.container {
-    max-width: 600px;
-    margin: auto;
+h1{
+margin:0 0 5px;
+font-size:32px
 }
 
-h1 {
-    text-align: center;
-    letter-spacing: 2px;
-    margin-bottom: 5px;
+.subtitle{
+color:#9aa4b2;
+margin-bottom:20px
 }
 
-.subtitle {
-    text-align: center;
-    color: #9ca3af;
-    margin-bottom: 20px;
+.warning{
+background:#151b24;
+border:1px solid #293241;
+padding:12px;
+border-radius:10px;
+margin-bottom:20px;
+font-size:13px;
+color:#b9c2cf
 }
 
-.warning {
-    background: #211b08;
-    border: 1px solid #806b22;
-    padding: 12px;
-    border-radius: 10px;
-    color: #f5d76e;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 14px;
+.card{
+background:#111720;
+border:1px solid #27303d;
+border-radius:14px;
+padding:18px;
+margin-bottom:16px
 }
 
-.card {
-    background: #11161d;
-    border: 1px solid #252d38;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 15px;
+label{
+display:block;
+margin-bottom:7px;
+font-weight:bold
 }
 
-.upload-box {
-    border: 2px dashed #374151;
-    border-radius: 12px;
-    padding: 25px 15px;
-    text-align: center;
-    margin-bottom: 15px;
+input,select,button{
+width:100%;
+padding:13px;
+border-radius:9px;
+border:1px solid #303a48;
+background:#0c1118;
+color:white;
+margin-bottom:15px
 }
 
-.upload-box p {
-    color: #9ca3af;
-    margin-top: 8px;
+button{
+background:#f2f4f7;
+color:#080b0f;
+font-weight:bold;
+cursor:pointer
 }
 
-input[type="file"] {
-    width: 100%;
-    margin-top: 10px;
-    color: white;
+button:disabled{
+opacity:.5;
+cursor:not-allowed
 }
 
-.preview {
-    display: none;
-    width: 100%;
-    max-height: 400px;
-    object-fit: contain;
-    border-radius: 10px;
-    margin-top: 15px;
-    border: 1px solid #374151;
+#preview{
+width:100%;
+max-height:500px;
+object-fit:contain;
+display:none;
+border-radius:10px;
+margin-top:10px
 }
 
-label {
-    display: block;
-    margin-bottom: 7px;
-    color: #cbd5e1;
-    font-weight: bold;
+.status{
+color:#9aa4b2;
+font-size:14px
 }
 
-select {
-    width: 100%;
-    padding: 13px;
-    border-radius: 9px;
-    border: 1px solid #374151;
-    background: #0b1016;
-    color: white;
-    font-size: 15px;
-    margin-bottom: 15px;
+.decision-card{
+background:#151c26;
+border:1px solid #3a4656
 }
 
-button {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background: #2563eb;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
+.decision-title{
+font-size:13px;
+letter-spacing:2px;
+color:#9aa4b2;
+margin-bottom:8px
 }
 
-button:disabled {
-    opacity: 0.6;
+.decision-status{
+font-size:30px;
+font-weight:bold;
+margin-bottom:20px
 }
 
-#status {
-    text-align: center;
-    color: #9ca3af;
-    margin-top: 15px;
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
 }
 
-.result-title {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
+.item{
+background:#0c1118;
+border-radius:10px;
+padding:13px
 }
 
-.result-row {
-    padding: 10px 0;
-    border-bottom: 1px solid #252d38;
+.label{
+font-size:11px;
+color:#8f99a8;
+text-transform:uppercase;
+margin-bottom:6px
 }
 
-.result-row span {
-    color: #cbd5e1;
+.value{
+font-size:15px;
+line-height:1.4
 }
 
-.setup {
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 10px;
-    background: #0b1016;
-    border: 1px solid #252d38;
+.summary{
+margin-top:15px;
+background:#0c1118;
+border-radius:10px;
+padding:14px;
+line-height:1.5
 }
 
-.setup p {
-    color: #cbd5e1;
+details{
+margin-top:5px
 }
 
-.footer {
-    text-align: center;
-    color: #6b7280;
-    font-size: 12px;
-    margin-top: 20px;
+summary{
+cursor:pointer;
+font-weight:bold;
+padding:5px
+}
+
+.result-title{
+font-size:12px;
+color:#8f99a8;
+text-transform:uppercase;
+margin-top:14px
+}
+
+.result{
+background:#0c1118;
+border-radius:9px;
+padding:12px;
+line-height:1.5;
+color:#d9dee6
+}
+
+@media(max-width:600px){
+.container{padding:14px}
+h1{font-size:27px}
+.grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -163,149 +179,176 @@ button:disabled {
 
 <div class="container">
 
-<h1>SMC ENGINE</h1>
+<h1>SMC Engine</h1>
 
 <div class="subtitle">
 Screenshot Market Analyzer
 </div>
 
 <div class="warning">
-SIMULATION / EDUCATIONAL MODE<br>
-No broker connection • No real-money execution
+SIMULATION / EDUCATIONAL MODE — No broker connection • No real-money execution
 </div>
 
 <div class="card">
 
-<div class="upload-box">
-
-<strong>📸 UPLOAD CHART SCREENSHOT</strong>
-
-<p>
-Upload a clear trading chart for SMC analysis.
-</p>
+<label>Chart Screenshot</label>
 
 <input
-    type="file"
-    id="chartImage"
-    accept="image/*"
-    onchange="previewChart()"
+type="file"
+id="chartImage"
+accept="image/*"
+onchange="previewChart()"
 >
 
-<img
-    id="preview"
-    class="preview"
-    alt="Chart preview"
->
-
-</div>
+<img id="preview" alt="Chart preview">
 
 <label>Instrument</label>
 
 <select id="instrument">
-<option value="XAUUSD">XAU/USD</option>
-<option value="GBPUSD">GBP/USD</option>
-<option value="EURUSD">EUR/USD</option>
-<option value="USDJPY">USD/JPY</option>
-<option value="OTHER">Other</option>
+<option value="XAUUSD">XAUUSD</option>
+<option value="GBPUSD">GBPUSD</option>
+<option value="EURUSD">EURUSD</option>
+<option value="USDJPY">USDJPY</option>
+<option value="OTHER">OTHER</option>
 </select>
 
-<label>Chart Timeframe</label>
+<label>Timeframe</label>
 
 <select id="timeframe">
-<option value="1m">1 Minute</option>
-<option value="5m">5 Minutes</option>
-<option value="15m">15 Minutes</option>
-<option value="30m">30 Minutes</option>
-<option value="1h">1 Hour</option>
-<option value="4h">4 Hours</option>
-<option value="1d">Daily</option>
+<option value="1m">1m</option>
+<option value="5m">5m</option>
+<option value="15m">15m</option>
+<option value="30m">30m</option>
+<option value="1h">1h</option>
+<option value="4h">4h</option>
+<option value="1d">1d</option>
 </select>
 
 <button id="analyzeButton" onclick="analyzeChart()">
 ANALYZE CHART
 </button>
 
-<div id="status">
-Waiting for chart...
+<div id="status" class="status">
+Ready.
 </div>
 
 </div>
+
+<!-- MAIN DECISION -->
+
+<div class="card decision-card">
+
+<div class="decision-title">
+CHART DECISION
+</div>
+
+<div id="decisionStatus" class="decision-status">
+WAITING FOR CHART
+</div>
+
+<div class="grid">
+
+<div class="item">
+<div class="label">Bias</div>
+<div id="decisionBias" class="value">—</div>
+</div>
+
+<div class="item">
+<div class="label">Setup</div>
+<div id="decisionSetup" class="value">—</div>
+</div>
+
+<div class="item">
+<div class="label">Key Zone</div>
+<div id="decisionZone" class="value">—</div>
+</div>
+
+<div class="item">
+<div class="label">Invalidation</div>
+<div id="decisionInvalidation" class="value">—</div>
+</div>
+
+<div class="item">
+<div class="label">Target Areas</div>
+<div id="decisionTargets" class="value">—</div>
+</div>
+
+<div class="item">
+<div class="label">Evidence</div>
+<div id="decisionEvidence" class="value">—</div>
+</div>
+
+</div>
+
+<div class="summary">
+<div class="label">SMC Confirmation</div>
+<div id="decisionSMC" class="value">—</div>
+</div>
+
+<div class="summary">
+<div class="label">Summary</div>
+<div id="decisionSummary" class="value">—</div>
+</div>
+
+</div>
+
+<!-- DETAILED ANALYSIS -->
 
 <div class="card">
 
-<div class="result-title">
-ANALYSIS
-</div>
+<details>
 
-<div class="result-row">
-<strong>Market Structure</strong><br>
-<span id="structure">Awaiting analysis</span>
-</div>
+<summary>
+SHOW DETAILED SMC ANALYSIS
+</summary>
 
-<div class="result-row">
-<strong>Liquidity</strong><br>
-<span id="liquidity">Awaiting analysis</span>
-</div>
+<div class="result-title">Market Structure</div>
+<div id="structure" class="result">Not provided</div>
 
-<div class="result-row">
-<strong>Fair Value Gap</strong><br>
-<span id="fvg">Awaiting analysis</span>
-</div>
+<div class="result-title">Liquidity</div>
+<div id="liquidity" class="result">Not provided</div>
 
-<div class="result-row">
-<strong>Order Blocks</strong><br>
-<span id="orderBlocks">Awaiting analysis</span>
-</div>
+<div class="result-title">Fair Value Gap</div>
+<div id="fvg" class="result">Not provided</div>
 
-<div class="result-row">
-<strong>Displacement</strong><br>
-<span id="displacement">Awaiting analysis</span>
-</div>
+<div class="result-title">Order Blocks</div>
+<div id="orderBlocks" class="result">Not provided</div>
 
-<div class="result-row">
-<strong>Price Location</strong><br>
-<span id="location">Awaiting analysis</span>
-</div>
+<div class="result-title">Displacement</div>
+<div id="displacement" class="result">Not provided</div>
 
-<div class="result-row">
-<strong>Momentum</strong><br>
-<span id="momentum">Awaiting analysis</span>
-</div>
+<div class="result-title">Price Location</div>
+<div id="location" class="result">Not provided</div>
 
-<div class="result-row">
-<strong>Direction</strong><br>
-<span id="direction">Awaiting analysis</span>
-</div>
+<div class="result-title">Momentum</div>
+<div id="momentum" class="result">Not provided</div>
 
-<div class="setup">
+<div class="result-title">Direction</div>
+<div id="direction" class="result">WAIT</div>
 
-<strong>ENTRY</strong>
-<p id="entry">—</p>
+<div class="result-title">Entry Information</div>
+<div id="entry" class="result">Not provided</div>
 
-<strong>STOP LOSS</strong>
-<p id="stop">—</p>
+<div class="result-title">Stop Information</div>
+<div id="stop" class="result">Not provided</div>
 
-<strong>TARGETS</strong>
-<p id="targets">—</p>
+<div class="result-title">Targets</div>
+<div id="targets" class="result">Not provided</div>
 
-<strong>RISK MANAGEMENT</strong>
-<p id="risk">—</p>
+<div class="result-title">Risk Management</div>
+<div id="risk" class="result">Not provided</div>
 
-<strong>INVALIDATION</strong>
-<p id="invalidation">—</p>
+<div class="result-title">Invalidation</div>
+<div id="invalidation" class="result">Not provided</div>
 
-<strong>EVIDENCE QUALITY</strong>
-<p id="evidence">—</p>
+<div class="result-title">Evidence Quality</div>
+<div id="evidence" class="result">LOW</div>
 
-<strong>REASONING</strong>
-<p id="reasoning">—</p>
+<div class="result-title">Reasoning</div>
+<div id="reasoning" class="result">Not provided</div>
 
-</div>
+</details>
 
-</div>
-
-<div class="footer">
-Educational SMC analysis tool — not financial advice.
 </div>
 
 </div>
@@ -315,227 +358,291 @@ Educational SMC analysis tool — not financial advice.
 const WORKER_URL =
 "https://smc-signal-engine-api.sparrowmaphera.workers.dev/";
 
-function previewChart() {
+function previewChart(){
 
-    const file =
-        document.getElementById("chartImage").files[0];
+const file =
+document.getElementById("chartImage").files[0];
 
-    const preview =
-        document.getElementById("preview");
+const preview =
+document.getElementById("preview");
 
-    if (!file) {
-        preview.style.display = "none";
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-        preview.src = event.target.result;
-        preview.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
+if(!file){
+preview.style.display="none";
+return;
 }
 
+const reader=new FileReader();
 
-function setResult(id, value) {
+reader.onload=function(e){
+preview.src=e.target.result;
+preview.style.display="block";
+};
 
-    const element = document.getElementById(id);
-
-    if (!element) return;
-
-    element.textContent =
-        value === undefined ||
-        value === null ||
-        value === ""
-            ? "Not provided"
-            : value;
+reader.readAsDataURL(file);
 }
 
+function setResult(id,value){
 
-async function analyzeChart() {
+const el=document.getElementById(id);
 
-    const file =
-        document.getElementById("chartImage").files[0];
+if(!el)return;
 
-    const status =
-        document.getElementById("status");
-
-    const button =
-        document.getElementById("analyzeButton");
-
-    const instrument =
-        document.getElementById("instrument").value;
-
-    const timeframe =
-        document.getElementById("timeframe").value;
-
-    if (!file) {
-
-        status.textContent =
-            "Please upload a chart screenshot first.";
-
-        return;
-    }
-
-    button.disabled = true;
-
-    status.textContent =
-        "Sending chart to AI...";
-
-    try {
-
-        const imageData =
-            await fileToDataURL(file);
-
-        status.textContent =
-            "AI is analyzing the chart...";
-
-        const response =
-            await fetch(WORKER_URL, {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    image: imageData,
-                    instrument: instrument,
-                    timeframe: timeframe
-                })
-            });
-
-        const data =
-            await response.json();
-
-        if (!response.ok || !data.success) {
-
-            throw new Error(
-                data.error ||
-                "The AI request failed."
-            );
-        }
-
-        const analysis =
-            data.analysis || {};
-
-        setResult(
-            "structure",
-            analysis.marketStructure
-        );
-
-        setResult(
-            "liquidity",
-            analysis.liquidity
-        );
-
-        setResult(
-            "fvg",
-            analysis.fairValueGap
-        );
-
-        setResult(
-            "orderBlocks",
-            analysis.orderBlocks
-        );
-
-        setResult(
-            "displacement",
-            analysis.displacement
-        );
-
-        setResult(
-            "location",
-            analysis.priceLocation
-        );
-
-        setResult(
-            "momentum",
-            analysis.momentum
-        );
-
-        setResult(
-            "direction",
-            analysis.direction
-        );
-
-        setResult(
-            "entry",
-            analysis.entry
-        );
-
-        setResult(
-            "stop",
-            analysis.stopLoss
-        );
-
-        setResult(
-            "targets",
-            analysis.targets
-        );
-
-        setResult(
-            "risk",
-            analysis.riskManagement
-        );
-
-        setResult(
-            "invalidation",
-            analysis.invalidation
-        );
-
-        setResult(
-            "evidence",
-            analysis.evidenceQuality
-        );
-
-        setResult(
-            "reasoning",
-            analysis.reasoning
-        );
-
-        status.textContent =
-            "Analysis complete.";
-
-    } catch (error) {
-
-        console.error(error);
-
-        status.textContent =
-            "Error: " + error.message;
-
-    } finally {
-
-        button.disabled = false;
-    }
+el.textContent=
+value===undefined||
+value===null||
+value===""
+?"Not provided"
+:value;
 }
 
+function getText(a){
 
-function fileToDataURL(file) {
+return (
+String(a.marketStructure||"")+" "+
+String(a.liquidity||"")+" "+
+String(a.fairValueGap||"")+" "+
+String(a.orderBlocks||"")+" "+
+String(a.displacement||"")+" "+
+String(a.momentum||"")
+).toLowerCase();
 
-    return new Promise(function(resolve, reject) {
+}
 
-        const reader =
-            new FileReader();
+function determineSetup(a){
 
-        reader.onload =
-            function() {
-                resolve(reader.result);
-            };
+const text=getText(a);
 
-        reader.onerror =
-            function() {
-                reject(
-                    new Error(
-                        "Could not read the chart image."
-                    )
-                );
-            };
+if(
+text.includes("order block") &&
+text.includes("displacement")
+)
+return "Order Block + Displacement";
 
-        reader.readAsDataURL(file);
-    });
+if(
+text.includes("fair value gap") ||
+text.includes("fvg")
+)
+return "Fair Value Gap";
+
+if(
+text.includes("break of structure") ||
+text.includes("bos")
+)
+return "Break of Structure";
+
+if(
+text.includes("liquidity sweep") ||
+text.includes("liquidity grab")
+)
+return "Liquidity Sweep";
+
+return "No clear setup";
+}
+
+function determineZone(a){
+
+if(
+a.orderBlocks &&
+a.orderBlocks!=="Not provided"
+)
+return a.orderBlocks;
+
+if(
+a.fairValueGap &&
+a.fairValueGap!=="Not provided"
+)
+return a.fairValueGap;
+
+return "No clear zone";
+}
+
+function updateDecision(a){
+
+const direction=
+String(a.direction||"WAIT").toUpperCase();
+
+let status="WAIT";
+
+if(direction==="BUY")
+status="BULLISH SETUP";
+
+if(direction==="SELL")
+status="BEARISH SETUP";
+
+document.getElementById(
+"decisionStatus"
+).textContent=status;
+
+document.getElementById(
+"decisionBias"
+).textContent=direction;
+
+document.getElementById(
+"decisionSetup"
+).textContent=
+determineSetup(a);
+
+document.getElementById(
+"decisionZone"
+).textContent=
+determineZone(a);
+
+document.getElementById(
+"decisionInvalidation"
+).textContent=
+a.invalidation||"Not provided";
+
+document.getElementById(
+"decisionTargets"
+).textContent=
+a.targets||"Not provided";
+
+document.getElementById(
+"decisionEvidence"
+).textContent=
+a.evidenceQuality||"LOW";
+
+document.getElementById(
+"decisionSMC"
+).textContent=
+"Structure: "+(a.marketStructure||"Not provided")+
+" | Liquidity: "+(a.liquidity||"Not provided")+
+" | FVG: "+(a.fairValueGap||"Not provided")+
+" | OB: "+(a.orderBlocks||"Not provided");
+
+document.getElementById(
+"decisionSummary"
+).textContent=
+a.reasoning||"No summary returned.";
+}
+
+async function analyzeChart(){
+
+const file=
+document.getElementById("chartImage").files[0];
+
+const status=
+document.getElementById("status");
+
+const button=
+document.getElementById("analyzeButton");
+
+if(!file){
+
+status.textContent=
+"Please upload a chart screenshot first.";
+
+return;
+}
+
+button.disabled=true;
+
+status.textContent=
+"Sending chart to AI...";
+
+try{
+
+const imageData=
+await fileToDataURL(file);
+
+status.textContent=
+"AI is analyzing the chart...";
+
+const response=
+await fetch(
+WORKER_URL,
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+image:imageData,
+
+instrument:
+document.getElementById("instrument").value,
+
+timeframe:
+document.getElementById("timeframe").value
+
+})
+}
+);
+
+const data=
+await response.json();
+
+if(!response.ok || !data.success){
+
+throw new Error(
+data.error||"AI request failed."
+);
+
+}
+
+const a=data.analysis||{};
+
+setResult("structure",a.marketStructure);
+setResult("liquidity",a.liquidity);
+setResult("fvg",a.fairValueGap);
+setResult("orderBlocks",a.orderBlocks);
+setResult("displacement",a.displacement);
+setResult("location",a.priceLocation);
+setResult("momentum",a.momentum);
+setResult("direction",a.direction);
+setResult("entry",a.entry);
+setResult("stop",a.stopLoss);
+setResult("targets",a.targets);
+setResult("risk",a.riskManagement);
+setResult("invalidation",a.invalidation);
+setResult("evidence",a.evidenceQuality);
+setResult("reasoning",a.reasoning);
+
+updateDecision(a);
+
+status.textContent=
+"Analysis complete.";
+
+}catch(error){
+
+console.error(error);
+
+status.textContent=
+"Error: "+error.message;
+
+}finally{
+
+button.disabled=false;
+
+}
+}
+
+function fileToDataURL(file){
+
+return new Promise(
+(resolve,reject)=>{
+
+const reader=new FileReader();
+
+reader.onload=()=>{
+resolve(reader.result);
+};
+
+reader.onerror=()=>{
+reject(
+new Error(
+"Could not read the chart image."
+)
+);
+};
+
+reader.readAsDataURL(file);
+
+}
+);
 }
 
 </script>
