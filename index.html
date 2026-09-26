@@ -1,7 +1,15 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ffffff"><title>SMC Engine</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+
+<title>SMC Engine</title>
+
+<style>
 *{box-sizing:border-box}
 
 body{
@@ -167,21 +175,37 @@ color:#d9dee6
 h1{font-size:27px}
 .grid{grid-template-columns:1fr}
 }
-</style></head><body><div class="container"><h1>SMC Engine</h1><div class="subtitle">
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>SMC Engine</h1>
+
+<div class="subtitle">
 Screenshot Market Analyzer
-</div><div class="warning">
+</div>
+
+<div class="warning">
 SIMULATION / EDUCATIONAL MODE — No broker connection • No real-money execution
-</div><div class="card"><label>Chart Screenshot</label>
+</div>
+
+<div class="card">
+
+<label>Chart Screenshot</label>
 
 <input
 type="file"
 id="chartImage"
 accept="image/*"
 onchange="previewChart()"
+>
 
-«»
+<img id="preview" alt="Chart preview">
 
-<img id="preview" alt="Chart preview"><label>Instrument</label>
+<label>Instrument</label>
 
 <select id="instrument">
 <option value="XAUUSD">XAUUSD</option>
@@ -189,7 +213,9 @@ onchange="previewChart()"
 <option value="EURUSD">EURUSD</option>
 <option value="USDJPY">USDJPY</option>
 <option value="OTHER">OTHER</option>
-</select><label>Timeframe</label>
+</select>
+
+<label>Timeframe</label>
 
 <select id="timeframe">
 <option value="1m">1m</option>
@@ -199,56 +225,134 @@ onchange="previewChart()"
 <option value="1h">1h</option>
 <option value="4h">4h</option>
 <option value="1d">1d</option>
-</select><button id="analyzeButton" onclick="analyzeChart()">
+</select>
+
+<button id="analyzeButton" onclick="analyzeChart()">
 ANALYZE CHART
-</button><div id="status" class="status">
+</button>
+
+<div id="status" class="status">
 Ready.
-</div></div><div class="card decision-card"><div class="decision-title">
+</div>
+
+</div>
+
+<div class="card decision-card">
+
+<div class="decision-title">
 CHART DECISION
-</div><div id="decisionStatus" class="decision-status">
+</div>
+
+<div id="decisionStatus" class="decision-status">
 WAITING FOR CHART
-</div><div class="grid"><div class="item">
+</div>
+
+<div class="grid">
+
+<div class="item">
 <div class="label">Bias</div>
 <div id="decisionBias" class="value">—</div>
-</div><div class="item">
+</div>
+
+<div class="item">
 <div class="label">Setup</div>
 <div id="decisionSetup" class="value">—</div>
-</div><div class="item">
+</div>
+
+<div class="item">
 <div class="label">Key Zone</div>
 <div id="decisionZone" class="value">—</div>
-</div><div class="item">
+</div>
+
+<div class="item">
 <div class="label">Invalidation</div>
 <div id="decisionInvalidation" class="value">—</div>
-</div><div class="item">
+</div>
+
+<div class="item">
 <div class="label">Target Areas</div>
 <div id="decisionTargets" class="value">—</div>
-</div><div class="item">
+</div>
+
+<div class="item">
 <div class="label">Evidence</div>
 <div id="decisionEvidence" class="value">—</div>
-</div></div><div class="summary">
+</div>
+
+</div>
+
+<div class="summary">
 <div class="label">SMC Confirmation</div>
 <div id="decisionSMC" class="value">—</div>
-</div><div class="summary">
+</div>
+
+<div class="summary">
 <div class="label">Summary</div>
 <div id="decisionSummary" class="value">—</div>
-</div></div><div class="card"><details><summary>
+</div>
+
+</div>
+
+<div class="card">
+
+<details>
+
+<summary>
 SHOW DETAILED SMC ANALYSIS
-</summary><div class="result-title">Market Structure</div>
-<div id="structure" class="result">Not provided</div><div class="result-title">Liquidity</div>
-<div id="liquidity" class="result">Not provided</div><div class="result-title">Fair Value Gap</div>
-<div id="fvg" class="result">Not provided</div><div class="result-title">Order Blocks</div>
-<div id="orderBlocks" class="result">Not provided</div><div class="result-title">Displacement</div>
-<div id="displacement" class="result">Not provided</div><div class="result-title">Price Location</div>
-<div id="location" class="result">Not provided</div><div class="result-title">Momentum</div>
-<div id="momentum" class="result">Not provided</div><div class="result-title">Direction</div>
-<div id="direction" class="result">WAIT</div><div class="result-title">Entry Information</div>
-<div id="entry" class="result">Not provided</div><div class="result-title">Stop Information</div>
-<div id="stop" class="result">Not provided</div><div class="result-title">Targets</div>
-<div id="targets" class="result">Not provided</div><div class="result-title">Risk Management</div>
-<div id="risk" class="result">Not provided</div><div class="result-title">Invalidation</div>
-<div id="invalidation" class="result">Not provided</div><div class="result-title">Evidence Quality</div>
-<div id="evidence" class="result">LOW</div><div class="result-title">Reasoning</div>
-<div id="reasoning" class="result">Not provided</div></details></div></div><script>
+</summary>
+
+<div class="result-title">Market Structure</div>
+<div id="structure" class="result">Not provided</div>
+
+<div class="result-title">Liquidity</div>
+<div id="liquidity" class="result">Not provided</div>
+
+<div class="result-title">Fair Value Gap</div>
+<div id="fvg" class="result">Not provided</div>
+
+<div class="result-title">Order Blocks</div>
+<div id="orderBlocks" class="result">Not provided</div>
+
+<div class="result-title">Displacement</div>
+<div id="displacement" class="result">Not provided</div>
+
+<div class="result-title">Price Location</div>
+<div id="location" class="result">Not provided</div>
+
+<div class="result-title">Momentum</div>
+<div id="momentum" class="result">Not provided</div>
+
+<div class="result-title">Direction</div>
+<div id="direction" class="result">WAIT</div>
+
+<div class="result-title">Entry Information</div>
+<div id="entry" class="result">Not provided</div>
+
+<div class="result-title">Stop Information</div>
+<div id="stop" class="result">Not provided</div>
+
+<div class="result-title">Targets</div>
+<div id="targets" class="result">Not provided</div>
+
+<div class="result-title">Risk Management</div>
+<div id="risk" class="result">Not provided</div>
+
+<div class="result-title">Invalidation</div>
+<div id="invalidation" class="result">Not provided</div>
+
+<div class="result-title">Evidence Quality</div>
+<div id="evidence" class="result">LOW</div>
+
+<div class="result-title">Reasoning</div>
+<div id="reasoning" class="result">Not provided</div>
+
+</details>
+
+</div>
+
+</div>
+
+<script>
 
 const WORKER_URL =
 "https://smc-signal-engine-api.sparrowmaphera.workers.dev/";
@@ -262,18 +366,23 @@ const preview =
 document.getElementById("preview");
 
 if(!file){
+
 preview.style.display="none";
 return;
+
 }
 
 const reader=new FileReader();
 
 reader.onload=function(e){
+
 preview.src=e.target.result;
 preview.style.display="block";
+
 };
 
 reader.readAsDataURL(file);
+
 }
 
 function setResult(id,value){
@@ -282,23 +391,26 @@ const el=document.getElementById(id);
 
 if(!el)return;
 
-el.textContent=
-value===undefined||
-value===null||
+el.textContent =
+value===undefined ||
+value===null ||
 value===""
 ?"Not provided"
 :value;
+
 }
 
 function getText(a){
 
 return (
+
 String(a.marketStructure||"")+" "+
 String(a.liquidity||"")+" "+
 String(a.fairValueGap||"")+" "+
 String(a.orderBlocks||"")+" "+
 String(a.displacement||"")+" "+
 String(a.momentum||"")
+
 ).toLowerCase();
 
 }
@@ -332,6 +444,7 @@ text.includes("liquidity grab")
 return "Liquidity Sweep";
 
 return "No clear setup";
+
 }
 
 function determineZone(a){
@@ -349,11 +462,12 @@ a.fairValueGap!=="Not provided"
 return a.fairValueGap;
 
 return "No clear zone";
+
 }
 
 function updateDecision(a){
 
-const direction=
+const direction =
 String(a.direction||"WAIT").toUpperCase();
 
 let status="WAIT";
@@ -409,41 +523,43 @@ document.getElementById(
 "decisionSummary"
 ).textContent=
 a.reasoning||"No summary returned.";
+
 }
 
 async function analyzeChart(){
 
-const file=
+const file =
 document.getElementById("chartImage").files[0];
 
-const status=
+const status =
 document.getElementById("status");
 
-const button=
+const button =
 document.getElementById("analyzeButton");
 
 if(!file){
 
-status.textContent=
+status.textContent =
 "Please upload a chart screenshot first.";
 
 return;
+
 }
 
 button.disabled=true;
 
-status.textContent=
+status.textContent =
 "Sending chart to AI...";
 
 try{
 
-const imageData=
+const imageData =
 await fileToDataURL(file);
 
-status.textContent=
+status.textContent =
 "AI is analyzing the chart...";
 
-const response=
+const response =
 await fetch(
 WORKER_URL,
 {
@@ -464,13 +580,17 @@ timeframe:
 document.getElementById("timeframe").value
 
 })
+
 }
 );
 
-const data=
+const data =
 await response.json();
 
-if(!response.ok || !data.success){
+if(
+!response.ok ||
+!data.success
+){
 
 throw new Error(
 data.error||"AI request failed."
@@ -480,32 +600,91 @@ data.error||"AI request failed."
 
 const a=data.analysis||{};
 
-setResult("structure",a.marketStructure);
-setResult("liquidity",a.liquidity);
-setResult("fvg",a.fairValueGap);
-setResult("orderBlocks",a.orderBlocks);
-setResult("displacement",a.displacement);
-setResult("location",a.priceLocation);
-setResult("momentum",a.momentum);
-setResult("direction",a.direction);
-setResult("entry",a.entry);
-setResult("stop",a.stopLoss);
-setResult("targets",a.targets);
-setResult("risk",a.riskManagement);
-setResult("invalidation",a.invalidation);
-setResult("evidence",a.evidenceQuality);
-setResult("reasoning",a.reasoning);
+setResult(
+"structure",
+a.marketStructure
+);
+
+setResult(
+"liquidity",
+a.liquidity
+);
+
+setResult(
+"fvg",
+a.fairValueGap
+);
+
+setResult(
+"orderBlocks",
+a.orderBlocks
+);
+
+setResult(
+"displacement",
+a.displacement
+);
+
+setResult(
+"location",
+a.priceLocation
+);
+
+setResult(
+"momentum",
+a.momentum
+);
+
+setResult(
+"direction",
+a.direction
+);
+
+setResult(
+"entry",
+a.entry
+);
+
+setResult(
+"stop",
+a.stopLoss
+);
+
+setResult(
+"targets",
+a.targets
+);
+
+setResult(
+"risk",
+a.riskManagement
+);
+
+setResult(
+"invalidation",
+a.invalidation
+);
+
+setResult(
+"evidence",
+a.evidenceQuality
+);
+
+setResult(
+"reasoning",
+a.reasoning
+);
 
 updateDecision(a);
 
-status.textContent=
+status.textContent =
 "Analysis complete.";
 
 }catch(error){
 
 console.error(error);
 
-status.textContent=
+status.textContent =
 "Error: "+error.message;
 
 }finally{
@@ -513,6 +692,7 @@ status.textContent=
 button.disabled=false;
 
 }
+
 }
 
 function fileToDataURL(file){
@@ -538,7 +718,41 @@ reader.readAsDataURL(file);
 
 }
 );
+
 }
 
-</script></body>
+
+/* PWA SERVICE WORKER */
+
+if("serviceWorker" in navigator){
+
+window.addEventListener(
+"load",
+function(){
+
+navigator.serviceWorker.register(
+"./sw.js"
+).then(
+function(){
+console.log(
+"SMC Engine service worker registered."
+);
+}
+).catch(
+function(error){
+console.log(
+"Service worker registration failed:",
+error
+);
+}
+);
+
+}
+);
+
+}
+
+</script>
+
+</body>
 </html>
