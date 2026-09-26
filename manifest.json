@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "SMC Signal Engine",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "SMC Engine",
+  "start_url": "/https://sparrowmaphera-create.github.io/smc-signal-engine/",
+  "theme_color": "#ffffff",
+  "description": "Smart Money Concepts chart analysis and educational trade planning tool.",
+  "id": "smc-signal-engine"
+}
